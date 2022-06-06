@@ -29,6 +29,7 @@ for FILE in "$PRE/check_incoming_calls.sh" \
 	"$PRE/print_invoice.sh" \
 	"$PRE/restore_mysql.sh" \
 	"$PRE/send_admin_message.sh" \
+	"/home/ejbw/yealink_reboot_checker.sh" \
 	"/var/www/fusionpbx/dial.php" \
 	"/home/ejbw/local_monitoring_phones.sh" \
 	"/home/ejbw/do_portfw.sh" \
