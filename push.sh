@@ -44,5 +44,7 @@ test -d .git || {
 	git config --global user.email "bb@npl.de"
 }
 
+# use special key in /home/ejbw/key-gitdeploy.txt
+# https://superuser.com/questions/232373/how-to-tell-git-which-private-key-to-use
 git add .
 git commit -m "${1:-autocommit}" && git push
