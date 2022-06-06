@@ -10,7 +10,6 @@ add()
 		;;
 	esac
 
-	chmod +x "$file" 2>/dev/null
 	cp "$file" .
 }
 

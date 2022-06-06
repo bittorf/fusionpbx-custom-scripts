@@ -102,7 +102,7 @@ if tar cf "$FILE" /usr/local/freeswitch/conf; then
 else
 	logger -s "[FATAL] writing '$FILE'"
 fi
-rm "$FILE"
+cp "$FILE" "$DESTDIR" && rm -f "$FILE"
 
 
 #
