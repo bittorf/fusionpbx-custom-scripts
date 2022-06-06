@@ -1,0 +1,46 @@
+#!/bin/sh -e
+#
+# rc.local
+#
+# This script is executed at the end of each multiuser runlevel.
+# Make sure that the script will "exit 0" on success or any other
+# value on error.
+#
+# In order to enable or disable this script just change the execution
+# bits.
+#
+# By default this script does nothing.
+
+# TODO: implement start/stop/restart()
+[ -e '/tmp/FIREWALL_READY' ] || {
+	echo "UID: $( id -u )" >'/tmp/FIREWALL_READY'
+
+	# forbid external access:
+	for PORT in 22 80 443 25 111 135 139 161 427 445 1433 1434 2049 4045 5080 8080; do
+		if iptables -I INPUT -p tcp --dport $PORT -j REJECT; then
+			echo "S1: OK: --dport $PORT"
+		else
+			echo "S1: ERROR $?: --dport $PORT"
+		fi
+	done >>'/tmp/FIREWALL_READY'
+
+	LIST_IP_GOOD="141.54.159.13/32 217.89.146.254/32 84.38.67.43/32 192.168.112.0/24 172.20.20.0/24 172.17.0.0/22 10.0.0.0/8 100.64.0.0/10"
+
+	# allow local stuff:
+	for IP in $LIST_IP_GOOD; do
+		for PORT in 22 80 443 5060; do
+			if iptables -I INPUT -p tcp --dport $PORT -s $IP -j ACCEPT; then
+				echo "S2: OK: --dport $PORT IP: $IP"
+
+				iptables -I INPUT -p udp --dport $PORT -s $IP -j ACCEPT
+			else
+				echo "S2: ERROR $?: --dport $PORT IP: $IP"
+			fi
+		done
+	done >>'/tmp/FIREWALL_READY'
+
+	iptables -I INPUT -s '127.0.0.0/8' -j ACCEPT
+
+	ip route add 10.10.43.0/26 via 172.17.0.1
+#	ip route add 10.10.43.36 via 172.17.0.1
+}

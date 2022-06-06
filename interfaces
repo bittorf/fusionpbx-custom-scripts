@@ -1,0 +1,30 @@
+auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet dhcp
+
+auto eth0:0
+iface eth0:0 inet static
+	address 172.20.20.1
+	netmask 255.255.255.0
+
+auto eth0:1
+iface eth0:1 inet static
+	address 192.168.1.2
+	netmask 255.255.255.252
+
+auto eth1
+iface eth1 inet manual
+	pre-up ip address add 172.17.0.81/22 dev eth1			# the other is .82
+	pre-up ip link set dev eth1 up
+	up     ip route add 10.10.0.0/16 via 172.17.0.2 dev eth1	# wifi-network
+	up     ip route add 192.168.0.0/24 via 172.17.0.1               # reithaus NEU via UTM
+	up     ip route add 192.168.112.0/24 via 172.17.0.1		# mininet J2-dach
+
+#auto dsl-provider
+#iface dsl-provider inet ppp
+#	pre-up /sbin/ifconfig eth0 up					# line maintained by pppoeconf
+#	provider dsl-provider
+#
+# /etc/resolv.conf is maintained by PPPoE
