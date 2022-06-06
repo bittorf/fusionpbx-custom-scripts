@@ -16,7 +16,8 @@ add()
 
 
 PRE="/usr/local/bin"
-for FILE in "$PRE/check_incoming_calls.sh" \
+for FILE in \
+	"$PRE/check_incoming_calls.sh" \
 	"$PRE/check_internet.sh" \
 	"$PRE/cron.backup_server.sh" \
 	"$PRE/cron.detect_role.sh" \

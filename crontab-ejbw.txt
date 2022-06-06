@@ -1,0 +1,1 @@
+10/* * * * * /home/ejbw/yealink_reboot_checker.sh 2>/dev/null

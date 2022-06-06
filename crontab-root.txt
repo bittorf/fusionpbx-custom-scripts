@@ -1,0 +1,17 @@
+PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games"
+
+# for firewall-whitelisting/SSH to monitoring server:
+* * * * * ping -s 64 -c1 84.38.67.43 >/dev/null 2>&1 || true
+
+* * * * * /usr/local/bin/check_internet.sh || true
+* * * * * /usr/local/bin/cron.fax_send_spooler.sh 2>&1 || true
+* * * * * /usr/local/bin/cron.freeswitch_check.sh 2>&1 || true
+* * * * * /usr/local/bin/cron.detect_role.sh 2>&1 || true
+* * * * * /usr/local/bin/check_incoming_calls.sh 2>&1 || true
+
+* * * * * /usr/local/bin/cron.monitoring_phones.sh 2>&1 || true
+*/15 * * * * /usr/local/bin/monitoring_standalone_generic.sh || true
+*/3 * * * * pidof vtund-nossl >/dev/null || /usr/sbin/vtund-nossl -f /etc/vtund.conf -P 5001 -s
+
+8 23 * * * /usr/local/bin/invoice-calls.sh >/dev/null || true
+5 1 * * * /usr/local/bin/cron.backup_server.sh 2>&1 || true
