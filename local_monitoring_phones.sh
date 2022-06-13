@@ -756,6 +756,7 @@ if cat "/tmp/minimoni.html" "/tmp/minimoni2.html"; then
 	# prepare for pandoc:
 	iconv -f iso-8859-1 -t UTF-8 "$PLAINTEXT.tmp" | sed 's/Ã¼/ü/' | sort -n >>"$PLAINTEXT"
 	cp "$PLAINTEXT" /var/www/fusionpbx/sip-devices-table.md
+	scp /var/www/fusionpbx/sip-devices-table.md root@intercity-vpn.de:/var/www/networks/ejbw-pbx/media/sip-devices-table.md
 else
 	log "error cat"
 fi

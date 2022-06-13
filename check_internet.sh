@@ -48,6 +48,11 @@ if check_inet; then
 		case "$( ip -o link show dev eth1 )" in
 			*" state UP "*)
 				true
+
+				# see /etc/network/interfaces
+				ping_ok "10.10.35.42"   || ip route add 10.10.0.0/16 via 172.17.0.2 dev eth1	# wifi-network
+				ping_ok "192.168.0.245" || ip route add 192.168.0.0/24 via 172.17.0.1		# reithaus NEU via UTM
+				ping_ok "192.168.112.2" || ip route add 192.168.112.0/24 via 172.17.0.1		# mininet J2-dach
 			;;
 			*)
 				ping_ok 172.17.0.82 || echo "$( date ) | eth1 down" >>"$LOG"
