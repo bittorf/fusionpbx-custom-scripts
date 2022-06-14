@@ -31,6 +31,7 @@ for FILE in \
 	"$PRE/send_admin_message.sh" \
 	"/home/ejbw/yealink_reboot_checker.sh" \
 	"/var/www/fusionpbx/dial.php" \
+	"/var/www/fusionpbx/invoice.php" \
 	"/home/ejbw/local_monitoring_phones.sh" \
 	"/home/ejbw/do_portfw.sh" \
 	"/home/ejbw/sipgateAPI-fax.pl" \
